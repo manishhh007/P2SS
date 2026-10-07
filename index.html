@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Summit '26 | Cybersecurity Workshop</title>
+  <meta name="description" content="Meridian Summit '26 is a one-day cybersecurity workshop exploring ethical hacking, AI security, threat intelligence, digital defense and the future of cybersecurity." />
+  <meta name="theme-color" content="#05070D" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2300E5FF'%3E%E2%97%88%3C/text%3E%3C/svg%3E" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Meridian Summit '26 | Cybersecurity Workshop" />
+  <meta property="og:description" content="Secure the Future. Shape the Threat Landscape. One day. One summit. The future of cyber defense." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Meridian Summit '26",
+    "description": "One-day cybersecurity workshop exploring ethical hacking, AI security and the future of cyber defense.",
+    "startDate": "2026-04-18T09:00",
+    "endDate": "2026-04-18T18:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": { "@type": "Place", "name": "Meridian Innovation Center", "address": "Bengaluru, India" }
+  }
+  </script>
+
+  <style>
+    /* ============ RESET & BASE ============ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --base: #05070D;
+      --secondary: #080D16;
+      --surface: #0D1420;
+      --panel: #111B29;
+      --cyan: #00E5FF;
+      --cyber: #246BFF;
+      --violet: #8B5CFF;
+      --signal: #00FF9C;
+      --danger: #FF3B5C;
+      --warn: #FFB800;
+      --text: #F5F7FA;
+      --muted: #8793A5;
+      --border: rgba(0,229,255,0.15);
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: auto; }
+    body {
+      background: var(--base);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    @media (pointer: coarse) { body { cursor: auto; } }
+    ::selection { background: rgba(0,229,255,0.3); color: #fff; }
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    img, svg { display: block; max-width: 100%; }
+    *:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 2px; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--base); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--violet)); border-radius: 4px; }
+
+    .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 1280px) { .container { padding: 0 40px; } }
+    section { position: relative; padding: 100px 0; }
+    @media (max-width: 768px) { section { padding: 72px 0; } }
+
+    .label-mono { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
+
+    /* ============ BACKGROUND LAYERS ============ */
+    .bg-layers {
+      position: fixed; inset: 0; z-index: -1; overflow: hidden;
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(36,107,255,0.10), transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,92,255,0.08), transparent 60%),
+                  linear-gradient(180deg, var(--base) 0%, var(--secondary) 100%);
+    }
+    .bg-grid {
+      position: absolute; inset: -50%;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.035) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 30s linear infinite;
+    }
+    @keyframes gridMove { 0% { transform: translate(0,0); } 100% { transform: translate(60px,60px); } }
+    .bg-scanline {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0,229,255,0.12), transparent);
+      animation: scanMove 12s linear infinite;
+    }
+    @keyframes scanMove { 0% { top: -5%; } 100% { top: 105%; } }
+    .bg-radial { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; animation: pulseGlow 8s ease-in-out infinite; }
+    .bg-radial.r1 { width: 600px; height: 600px; top: -200px; left: -150px; background: radial-gradient(circle, rgba(0,229,255,0.15), transparent 70%); }
+    .bg-radial.r2 { width: 500px; height: 500px; bottom: -150px; right: -100px; background: radial-gradient(circle, rgba(139,92,255,0.15), transparent 70%); animation-delay: -4s; }
+    @keyframes pulseGlow { 0%,100% { opacity: 0.3; } 50% { opacity: 0.55; } }
+    .bg-noise {
+      position: absolute; inset: 0; opacity: 0.035; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    #particle-canvas { position: absolute; inset: 0; opacity: 0.5; }
+
+    /* ============ CUSTOM CURSOR ============ */
+    .cursor-dot, .cursor-ring {
+      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999;
+      border-radius: 50%; transform: translate(-50%,-50%);
+      mix-blend-mode: screen;
+    }
+    .cursor-dot { width: 6px; height: 6px; background: var(--cyan); }
+    .cursor-ring {
+      width: 36px; height: 36px; border: 1.5px solid rgba(0,229,255,0.5);
+      transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .cursor-ring.hover-link { width: 52px; height: 52px; border-color: rgba(0,229,255,0.9); }
+    .cursor-ring.hover-button { width: 60px; height: 60px; border-color: var(--cyan); background: rgba(0,229,255,0.08); }
+    .cursor-ring.hover-card { width: 72px; height: 72px; border-color: rgba(139,92,255,0.5); background: rgba(139,92,255,0.06); }
+    @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+    /* ============ BOOT SEQUENCE (small preloader) ============ */
+    .preloader {
+      position: fixed; inset: 0; z-index: 100000;
+      background: var(--base);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+    .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader-brand {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 0.15em;
+    }
+    .preloader-brand .line { display: block; overflow: hidden; }
+    .preloader-brand .line span {
+      display: block; transform: translateY(110%);
+      animation: preloaderRise 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .preloader-brand .line:nth-child(2) span { animation-delay: 0.25s; color: var(--cyan); }
+    @keyframes preloaderRise { to { transform: translateY(0); } }
+    .preloader-bar {
+      margin-top: 40px; width: min(360px, 70vw); height: 2px;
+      background: rgba(255,255,255,0.08); position: relative; overflow: hidden;
+    }
+    .preloader-bar::after {
+      content: ''; position: absolute; inset: 0; width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      animation: preloaderFill 1.6s cubic-bezier(0.65,0,0.35,1) 0.4s forwards;
+    }
+    @keyframes preloaderFill { to { width: 100%; } }
+    .preloader-status {
+      margin-top: 20px; font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase;
+    }
+    .preloader-status .cursor-blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ============ FIREWALL GAME ============ */
+    .breach-game {
+      position: fixed; inset: 0; z-index: 99998;
+      background: radial-gradient(ellipse at center, rgba(255,59,92,0.05), transparent 70%), #030509;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 1; visibility: visible;
+      transition: opacity 0.7s ease, visibility 0.7s;
+    }
+    .breach-game.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .game-frame {
+      width: 100%; max-width: 900px;
+      background: linear-gradient(160deg, #06080E, #0A0F1A);
+      border: 1px solid rgba(255,59,92,0.25);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 80px rgba(255,59,92,0.08);
+      position: relative;
+      animation: gameIn 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes gameIn {
+      from { transform: scale(0.94) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .game-frame::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--danger), transparent);
+      animation: lineScan 3s linear infinite;
+    }
+    @keyframes lineScan { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    /* Alert header */
+    .game-alert {
+      background: linear-gradient(90deg, rgba(255,59,92,0.15), rgba(255,59,92,0.05));
+      border-bottom: 1px solid rgba(255,59,92,0.25);
+      padding: 14px 20px;
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .game-alert .blip {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--danger);
+      box-shadow: 0 0 12px var(--danger);
+      animation: blip 1s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes blip { 0%,100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.1); } }
+    .game-alert .text { color: var(--danger); font-weight: 500; }
+    .game-alert .right { margin-left: auto; color: var(--muted); font-size: 0.62rem; }
+
+    /* Main game body */
+    .game-body { padding: 32px 28px 24px; }
+
+    .game-header { margin-bottom: 24px; }
+    .game-title {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(1.4rem, 3.5vw, 2rem); letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .game-subtitle {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase;
+    }
+
+    /* Status bars */
+    .game-stats {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 600px) { .game-stats { grid-template-columns: 1fr 1fr; } .game-stats > :nth-child(3) { grid-column: 1 / -1; } }
+    .game-stat {
+      background: rgba(13,20,32,0.8); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; padding: 12px 14px;
+    }
+    .game-stat .k {
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em;
+      color: var(--muted); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .game-stat .v {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 1.15rem; letter-spacing: -0.01em;
+    }
+    .game-stat .v.good { color: var(--signal); }
+    .game-stat .v.bad { color: var(--danger); }
+    .game-stat .v.warn { color: var(--warn); }
+    .bar-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 100%; transition: width 0.5s ease; }
+    .bar-fill.firewall { background: linear-gradient(90deg, var(--signal), var(--cyan)); }
+    .bar-fill.integrity { background: linear-gradient(90deg, var(--cyan), var(--cyber)); }
+    .bar-fill.threat { background: linear-gradient(90deg, var(--warn), var(--danger)); }
+
+    /* Terminal log */
+    .game-log {
+      background: #030509; border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; padding: 18px 20px;
+      font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.9;
+      height: 200px; overflow-y: auto; margin-bottom: 20px;
+      scrollbar-width: thin; scrollbar-color: rgba(0,229,255,0.3) transparent;
+    }
+    .game-log::-webkit-scrollbar { width: 6px; }
+    .game-log::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.3); border-radius: 3px; }
+    .log-line { animation: logIn 0.3s ease; }
+    @keyframes logIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
+    .log-line .t { color: #4a5568; margin-right: 8px; }
+    .log-line.info { color: var(--cyan); }
+    .log-line.warn { color: var(--warn); }
+    .log-line.danger { color: var(--danger); }
+    .log-line.success { color: var(--signal); }
+    .log-line.sys { color: var(--muted); }
+
+    /* Question / command */
+    .game-prompt {
+      border: 1px solid rgba(0,229,255,0.25); border-radius: 8px;
+      padding: 20px;
+      background: linear-gradient(160deg, rgba(0,229,255,0.04), rgba(139,92,255,0.02));
+    }
+    .game-prompt .q-label {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em;
+      color: var(--cyan); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .game-prompt .q-text {
+      font-family: var(--font-display); font-size: 1.05rem;
+      font-weight: 500; line-height: 1.5; margin-bottom: 18px;
+    }
+    .game-prompt .q-text .highlight { color: var(--danger); font-weight: 600; }
+
+    .game-options {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    @media (max-width: 560px) { .game-options { grid-template-columns: 1fr; } }
+    .game-option {
+      font-family: var(--font-mono); font-size: 0.78rem;
+      padding: 14px 16px; text-align: left; letter-spacing: 0.02em;
+      background: rgba(13,20,32,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; color: var(--text);
+      transition: all 0.2s; position: relative;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .game-option .key {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; flex-shrink: 0;
+      background: rgba(0,229,255,0.1); color: var(--cyan);
+      border-radius: 4px; font-size: 0.7rem;
+    }
+    .game-option:hover:not(:disabled) {
+      border-color: var(--cyan); background: rgba(0,229,255,0.06);
+      transform: translateX(3px);
+    }
+    .game-option:disabled { cursor: not-allowed; opacity: 0.5; }
+    .game-option.correct {
+      border-color: var(--signal); background: rgba(0,255,156,0.1); color: var(--signal);
+    }
+    .game-option.correct .key { background: rgba(0,255,156,0.15); color: var(--signal); }
+    .game-option.wrong {
+      border-color: var(--danger); background: rgba(255,59,92,0.1); color: var(--danger);
+    }
+    .game-option.wrong .key { background: rgba(255,59,92,0.15); color: var(--danger); }
+
+    /* Game footer */
+    .game-footer {
+      padding: 16px 28px 20px; border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      font-family: var(--font-mono); font-size: 0.62rem;
+      letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase;
+    }
+    .game-footer .dot-line { display: flex; align-items: center; gap: 8px; }
+    .game-footer .dot-line .d { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 8px var(--signal); }
+    .game-footer .dot-line .d.off { background: var(--muted); box-shadow: none; opacity: 0.4; }
+
+    /* Skip button */
+    .game-skip {
+      position: absolute; top: 12px; right: 14px;
+      font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.14em; color: var(--muted);
+      padding: 8px 12px; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px; text-transform: uppercase;
+      transition: all 0.3s; z-index: 5;
+    }
+    .game-skip:hover { color: var(--cyan); border-color: rgba(0,229,255,0.3); }
+
+    /* Result overlay */
+    .game-result {
+      position: absolute; inset: 0; z-index: 10;
+      background: rgba(3,5,9,0.94);
+      backdrop-filter: blur(8px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px; text-align: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+    .game-result.show { opacity: 1; visibility: visible; }
+    .game-result .result-icon { width: 72px; height: 72px; margin-bottom: 24px; }
+    .game-result.win .result-icon { color: var(--signal); }
+    .game-result.lose .result-icon { color: var(--danger); }
+    .game-result h3 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.2rem);
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .game-result.win h3 { color: var(--signal); }
+    .game-result.lose h3 { color: var(--danger); }
+    .game-result p {
+      font-family: var(--font-mono); font-size: 0.78rem;
+      color: var(--muted); letter-spacing: 0.08em;
+      line-height: 1.8; max-width: 460px; margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+    .game-result .stat-row {
+      display: flex; gap: 24px; margin-bottom: 28px;
+      font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .game-result .stat-row strong { color: var(--cyan); font-weight: 500; }
+
+    .btn-enter {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 16px 32px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--cyan), var(--cyber));
+      color: var(--base); font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 0 0 rgba(0,229,255,0);
+    }
+    .btn-enter:hover { box-shadow: 0 8px 40px rgba(0,229,255,0.5); transform: translateY(-2px); }
+    .btn-enter .arrow { transition: transform 0.3s; }
+    .btn-enter:hover .arrow { transform: translateX(5px); }
+
+    /* Threat flash overlay */
+    .threat-flash {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(circle, rgba(255,59,92,0.4), transparent 70%);
+      opacity: 0; transition: opacity 0.3s;
+      border-radius: 14px;
+    }
+    .threat-flash.on { opacity: 1; }
+
+    /* ============ SCROLL PROGRESS ============ */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      width: 0%; transition: width 0.1s linear;
+    }
+
+    /* ============ SECTION INDICATOR ============ */
+    .section-indicator {
+      position: fixed; right: 32px; top: 50%; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: 16px;
+    }
+    .section-indicator button {
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+      color: var(--muted); opacity: 0.4; transition: all 0.3s; position: relative;
+      padding: 4px 8px;
+    }
+    .section-indicator button::after {
+      content: ''; position: absolute; left: -12px; top: 50%; transform: translateY(-50%);
+      width: 6px; height: 6px; border-radius: 50%; background: var(--muted);
+      transition: all 0.3s;
+    }
+    .section-indicator button.active { color: var(--cyan); opacity: 1; }
+    .section-indicator button.active::after { background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    @media (max-width: 1024px) { .section-indicator { display: none; } }
+
+    /* ============ HEADER ============ */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 0; transition: all 0.4s ease;
+    }
+    .header.scrolled {
+      background: rgba(5,7,13,0.82); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); padding: 14px 0;
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo {
+      font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
+      letter-spacing: 0.12em; display: flex; align-items: center; gap: 10px;
+    }
+    .logo-mark { width: 26px; height: 26px; flex-shrink: 0; }
+    .logo-mark svg { width: 100%; height: 100%; }
+    .logo span { color: var(--cyan); }
+    .nav-desktop { display: flex; align-items: center; gap: 32px; }
+    .nav-desktop a {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); transition: color 0.3s; position: relative;
+    }
+    .nav-desktop a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+      background: var(--cyan); transition: width 0.3s;
+    }
+    .nav-desktop a:hover { color: var(--text); }
+    .nav-desktop a:hover::after { width: 100%; }
+    @media (max-width: 900px) { .nav-desktop { display: none; } }
+
+    .btn-register {
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 10px 20px; border-radius: 4px;
+      background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(139,92,255,0.15));
+      border: 1px solid rgba(0,229,255,0.4); color: var(--cyan);
+      transition: all 0.3s;
+    }
+    .btn-register:hover {
+      background: linear-gradient(135deg, rgba(0,229,255,0.3), rgba(139,92,255,0.3));
+      box-shadow: 0 0 24px rgba(0,229,255,0.3); color: #fff;
+    }
+    @media (max-width: 900px) { .btn-register { display: none; } }
+
+    .hamburger {
+      display: none; width: 44px; height: 44px;
+      flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+    }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    @media (max-width: 900px) { .hamburger { display: flex; } }
+
+    /* ============ MOBILE MENU ============ */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 999; background: var(--base);
+      display: flex; flex-direction: column; justify-content: center; padding: 80px 32px 40px;
+      opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s;
+      overflow-y: auto;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; }
+    .mobile-menu::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .mobile-menu nav { display: flex; flex-direction: column; gap: 4px; position: relative; }
+    .mobile-menu nav a {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 16px;
+      opacity: 0; transform: translateY(30px);
+    }
+    .mobile-menu.open nav a { animation: menuItemIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+    @keyframes menuItemIn { to { opacity: 1; transform: translateY(0); } }
+    .mobile-menu nav a .idx {
+      font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan);
+      letter-spacing: 0.1em; font-weight: 400;
+    }
+    .mobile-menu-footer {
+      margin-top: 48px; display: flex; flex-direction: column; gap: 20px;
+      opacity: 0; animation: menuItemIn 0.5s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .mobile-menu-footer .info {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
+      color: var(--muted); text-transform: uppercase; line-height: 1.8;
+    }
+    .mobile-menu-footer .socials { display: flex; gap: 20px; }
+    .mobile-menu-footer .socials a {
+      font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
+      color: var(--cyan); text-transform: uppercase;
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 16px 32px; border-radius: 4px;
+      background: linear-gradient(135deg, var(--cyan), var(--cyber));
+      color: var(--base); font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 0 0 rgba(0,229,255,0);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 40px rgba(0,229,255,0.4); transform: translateY(-2px); }
+    .btn-primary .arrow { transition: transform 0.3s; }
+    .btn-primary:hover .arrow { transform: translateX(5px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 16px 32px; border-radius: 4px;
+      border: 1px solid rgba(0,229,255,0.4); color: var(--cyan);
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover { background: rgba(0,229,255,0.08); border-color: var(--cyan); }
+    .btn-secondary .arrow { transition: transform 0.3s; }
+    .btn-secondary:hover .arrow { transform: translateX(5px); }
+
+    /* ============ HERO ============ */
+    .hero {
+      min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+      padding-top: 120px; padding-bottom: 60px; position: relative;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 60px; align-items: center; }
+    @media (max-width: 1024px) { .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
+    .hero-label { margin-bottom: 28px; }
+    .hero-title {
+      font-size: clamp(3rem, 9vw, 8.5rem); line-height: 0.92;
+      font-weight: 700; letter-spacing: -0.04em; margin-bottom: 24px;
+    }
+    .hero-title .line1 { display: block; color: var(--text); }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--cyan), var(--cyber) 50%, var(--violet));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      font-size: clamp(3.5rem, 11vw, 10rem);
+    }
+    .hero-headline {
+      font-family: var(--font-mono); font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan);
+      margin-bottom: 24px;
+    }
+    .hero-desc { font-size: 1rem; line-height: 1.7; color: var(--muted); max-width: 540px; margin-bottom: 36px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    .hero-visual { position: relative; aspect-ratio: 1; max-width: 520px; margin-left: auto; }
+    @media (max-width: 1024px) { .hero-visual { margin: 0 auto; max-width: 440px; } }
+    .hero-visual svg { width: 100%; height: 100%; overflow: visible; }
+    .globe-ring { transform-origin: center; }
+    .globe-ring.r1 { animation: rotate 40s linear infinite; }
+    .globe-ring.r2 { animation: rotate 30s linear infinite reverse; }
+    .globe-ring.r3 { animation: rotate 55s linear infinite; }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    .node-pulse { animation: nodePulse 2.5s ease-in-out infinite; transform-origin: center; }
+    @keyframes nodePulse {
+      0%,100% { opacity: 0.5; r: 3; }
+      50% { opacity: 1; r: 5; }
+    }
+    .hero-tag {
+      position: absolute; font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan);
+      white-space: nowrap; padding: 4px 10px;
+      background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 3px; backdrop-filter: blur(4px);
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-tag.t1 { top: 8%; right: 0; }
+    .hero-tag.t2 { bottom: 18%; left: -8%; animation-delay: -2s; }
+    .hero-tag.t3 { top: 40%; right: -6%; animation-delay: -4s; }
+    .hero-tag.t4 { bottom: 5%; right: 12%; animation-delay: -1s; color: var(--signal); border-color: rgba(0,255,156,0.3); background: rgba(0,255,156,0.05); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    .hero-strip {
+      margin-top: 72px; display: flex; flex-wrap: wrap; align-items: center;
+      gap: 40px; padding-top: 32px; border-top: 1px solid rgba(0,229,255,0.12);
+    }
+    .hero-strip .big {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.01em;
+    }
+    .hero-strip .big .unit { color: var(--cyan); font-size: 0.6em; vertical-align: super; margin-left: 2px; }
+    .hero-strip .meta { display: flex; flex-wrap: wrap; gap: 32px; margin-left: auto; }
+    .hero-strip .meta-item .k {
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px;
+    }
+    .hero-strip .meta-item .v {
+      font-family: var(--font-mono); font-size: 0.8rem; color: var(--text); letter-spacing: 0.05em;
+    }
+    @media (max-width: 768px) {
+      .hero-strip { gap: 24px; }
+      .hero-strip .meta { margin-left: 0; width: 100%; gap: 20px 32px; }
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.2em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .scroll-hint .track { width: 1px; height: 40px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
+    .scroll-hint .track::after {
+      content: ''; position: absolute; top: -50%; left: 0; width: 100%; height: 50%;
+      background: linear-gradient(var(--cyan), transparent);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown { 0% { top: -50%; } 100% { top: 100%; } }
+    @media (max-width: 768px) { .scroll-hint { display: none; } }
+
+    /* ============ SECTIONS ============ */
+    .section-head { margin-bottom: 56px; }
+    .section-head .label-mono { margin-bottom: 20px; display: block; }
+    .section-title { font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.02; letter-spacing: -0.03em; max-width: 900px; }
+    .section-title .grad {
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .about-statement { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.4rem); line-height: 1.25; letter-spacing: -0.02em; }
+    .about-statement .hl { color: var(--cyan); }
+    .about-text { color: var(--muted); line-height: 1.8; font-size: 1rem; }
+    .about-text p + p { margin-top: 18px; }
+
+    .stats-grid { margin-top: 80px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 56px; } }
+    .stat-card {
+      padding: 28px 24px; border: 1px solid var(--border); border-radius: 8px;
+      background: linear-gradient(160deg, rgba(13,20,32,0.6), rgba(8,13,22,0.4));
+      position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+    }
+    .stat-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-4px); }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.5;
+    }
+    .stat-num {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem); line-height: 1;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+
+    .threat-wrap { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 40px; align-items: center; }
+    @media (max-width: 900px) { .threat-wrap { grid-template-columns: 1fr; } }
+    .threat-canvas {
+      position: relative; aspect-ratio: 1.15; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, rgba(36,107,255,0.06), transparent 70%), var(--surface);
+    }
+    .threat-canvas svg { width: 100%; height: 100%; }
+    .threat-node { cursor: pointer; }
+    .threat-node circle.core { transition: r 0.3s, fill 0.3s; }
+    .threat-node text { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; fill: var(--muted); text-anchor: middle; text-transform: uppercase; transition: fill 0.3s; }
+    .threat-node:hover circle.core, .threat-node.active circle.core { r: 12; fill: var(--cyan); }
+    .threat-node:hover text, .threat-node.active text { fill: var(--text); }
+    .threat-line { stroke: rgba(0,229,255,0.15); stroke-width: 1; transition: stroke 0.3s, stroke-width 0.3s; }
+    .threat-line.active { stroke: var(--cyan); stroke-width: 1.5; }
+
+    .threat-panel {
+      border: 1px solid var(--border); border-radius: 12px; padding: 32px;
+      background: linear-gradient(160deg, var(--panel), var(--surface));
+      min-height: 320px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .threat-panel .node-name { font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; margin-bottom: 24px; }
+    .threat-panel .row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .threat-panel .row:last-child { border-bottom: none; }
+    .threat-panel .row .k { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .threat-panel .row .v { font-family: var(--font-mono); font-size: 0.95rem; color: var(--cyan); }
+    .threat-panel .placeholder { color: var(--muted); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em; }
+    .threat-meter { margin-top: 20px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .threat-meter .fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--violet)); width: 0; transition: width 0.6s cubic-bezier(0.16,1,0.3,1); }
+
+    .workshop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    @media (max-width: 1024px) { .workshop-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .workshop-grid { grid-template-columns: 1fr; } }
+    .workshop-card {
+      position: relative; padding: 28px 24px 24px; border: 1px solid var(--border);
+      border-radius: 10px; background: linear-gradient(160deg, rgba(13,20,32,0.7), rgba(8,13,22,0.5));
+      transition: all 0.4s cubic-bezier(0.16,1,0.3,1); overflow: hidden; min-height: 220px;
+      display: flex; flex-direction: column;
+    }
+    .workshop-card::before {
+      content: ''; position: absolute; inset: 0; opacity: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(0,229,255,0.12), transparent 60%);
+      transition: opacity 0.4s; pointer-events: none;
+    }
+    .workshop-card:hover { transform: translateY(-6px); border-color: rgba(0,229,255,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .workshop-card:hover::before { opacity: 1; }
+    .workshop-card .num { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 20px; }
+    .workshop-card .icon { width: 40px; height: 40px; margin-bottom: 18px; color: var(--cyan); transition: transform 0.4s; }
+    .workshop-card:hover .icon { transform: scale(1.1) rotate(-4deg); }
+    .workshop-card .icon svg { width: 100%; height: 100%; stroke-width: 1.5; }
+    .workshop-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .workshop-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .workshop-card .tag {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--violet); margin-top: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .workshop-card .tag .arrow { transition: transform 0.3s; }
+    .workshop-card:hover .tag .arrow { transform: translateX(4px); }
+
+    .featured { background: linear-gradient(180deg, var(--secondary), var(--base)); }
+    .flow-wrap { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 56px; }
+    @media (max-width: 900px) { .flow-wrap { grid-template-columns: 1fr; gap: 12px; } }
+    .flow-step {
+      position: relative; padding: 28px 20px; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--surface); text-align: center;
+      transition: all 0.4s; opacity: 0.4; transform: translateY(20px);
+    }
+    .flow-step.in-view { opacity: 1; transform: translateY(0); border-color: rgba(0,229,255,0.35); }
+    .flow-step .step-num { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 16px; display: block; }
+    .flow-step .step-icon { width: 36px; height: 36px; margin: 0 auto 16px; color: var(--cyan); }
+    .flow-step .step-icon svg { width: 100%; height: 100%; stroke-width: 1.5; }
+    .flow-step h4 { font-size: 0.95rem; letter-spacing: 0.02em; text-transform: uppercase; font-weight: 600; }
+    .flow-step p { font-size: 0.72rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+    @media (min-width: 901px) {
+      .flow-step:not(:last-child)::after {
+        content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+        color: var(--cyan); font-size: 1.2rem; z-index: 2;
+      }
+    }
+
+    .speakers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 1024px) { .speakers-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .speakers-grid { grid-template-columns: 1fr; } }
+    .speaker-card {
+      position: relative; border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; background: var(--surface); transition: all 0.4s;
+    }
+    .speaker-card:hover { border-color: rgba(139,92,255,0.5); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+    .speaker-portrait {
+      aspect-ratio: 1; position: relative; overflow: hidden;
+      background: linear-gradient(160deg, var(--panel), var(--surface));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .speaker-portrait .avatar {
+      width: 55%; height: 55%; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(139,92,255,0.15));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 2rem; font-weight: 600;
+      color: var(--cyan); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+      border: 1px solid rgba(0,229,255,0.2);
+    }
+    .speaker-card:hover .avatar { transform: scale(1.12); }
+    .speaker-portrait::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(139,92,255,0.2));
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .speaker-card:hover .speaker-portrait::after { opacity: 1; }
+    .speaker-info { padding: 20px; }
+    .speaker-info h3 { font-size: 1.05rem; margin-bottom: 4px; }
+    .speaker-info .role { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+    .speaker-info .org { font-size: 0.78rem; color: var(--muted); }
+    .speaker-info .expertise {
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06);
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--violet); opacity: 0; transform: translateY(6px);
+      transition: all 0.4s;
+    }
+    .speaker-card:hover .speaker-info .expertise { opacity: 1; transform: translateY(0); }
+    .speaker-socials {
+      position: absolute; top: 12px; right: 12px; display: flex; gap: 8px;
+      opacity: 0; transform: translateY(-6px); transition: all 0.4s;
+    }
+    .speaker-card:hover .speaker-socials { opacity: 1; transform: translateY(0); }
+    .speaker-socials a {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); transition: all 0.3s;
+    }
+    .speaker-socials a:hover { background: var(--cyan); color: var(--base); }
+    .speaker-socials a svg { width: 14px; height: 14px; }
+
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(180deg, transparent, var(--cyan) 10%, var(--violet) 90%, transparent);
+      opacity: 0.4;
+    }
+    .timeline-item {
+      position: relative; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: grid; grid-template-columns: 90px 1fr auto; gap: 24px; align-items: center;
+      transition: all 0.4s; opacity: 0.35;
+    }
+    .timeline-item.active { opacity: 1; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -29px; top: 50%; transform: translateY(-50%);
+      width: 9px; height: 9px; border-radius: 50%; background: var(--surface);
+      border: 1.5px solid var(--muted); transition: all 0.4s;
+    }
+    .timeline-item.active::before { background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 16px var(--cyan); }
+    .timeline-item .time { font-family: var(--font-mono); font-size: 0.85rem; color: var(--cyan); letter-spacing: 0.05em; }
+    .timeline-item .title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; }
+    .timeline-item .type {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); padding: 4px 10px;
+      border: 1px solid var(--border); border-radius: 3px;
+    }
+    @media (max-width: 640px) {
+      .timeline-item { grid-template-columns: 70px 1fr; }
+      .timeline-item .type { display: none; }
+    }
+
+    .challenge-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    @media (max-width: 900px) { .challenge-wrap { grid-template-columns: 1fr; } }
+    .terminal {
+      background: #04060a; border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .terminal-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: rgba(13,20,32,0.8); border-bottom: 1px solid var(--border); }
+    .terminal-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-bar .dot.r { background: #ff5f57; }
+    .terminal-bar .dot.y { background: #febc2e; }
+    .terminal-bar .dot.g { background: #28c840; }
+    .terminal-bar .title { margin-left: 12px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; }
+    .terminal-body { padding: 20px; font-family: var(--font-mono); font-size: 0.78rem; line-height: 2; color: var(--signal); min-height: 280px; }
+    .terminal-body .line { opacity: 0; animation: termIn 0.4s forwards; }
+    .terminal-body .line .prompt { color: var(--cyan); }
+    .terminal-body .line .warn { color: var(--warn); }
+    .terminal-body .line .danger { color: var(--danger); }
+    .terminal-body .line .ok { color: var(--signal); }
+    @keyframes termIn { to { opacity: 1; } }
+    .terminal-body .caret { display: inline-block; width: 8px; height: 14px; background: var(--cyan); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 4px; }
+
+    .experience-scroll { display: flex; gap: 24px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
+    .experience-scroll::-webkit-scrollbar { display: none; }
+    .exp-card {
+      flex: 0 0 320px; min-height: 380px; border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px 28px;
+      background: linear-gradient(160deg, var(--panel), var(--surface));
+      display: flex; flex-direction: column; transition: all 0.4s;
+    }
+    .exp-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-6px); }
+    .exp-card .num { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: auto; }
+    .exp-card .exp-icon { width: 44px; height: 44px; color: var(--cyan); margin: 28px 0 20px; }
+    .exp-card .exp-icon svg { width: 100%; height: 100%; stroke-width: 1.4; }
+    .exp-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .exp-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    @media (max-width: 560px) { .exp-card { flex: 0 0 85vw; } }
+
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media (max-width: 900px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
+    .benefit-card {
+      padding: 32px 28px; border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); transition: all 0.4s;
+    }
+    .benefit-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-4px); background: var(--panel); }
+    .benefit-card .icon { width: 32px; height: 32px; color: var(--cyan); margin-bottom: 20px; }
+    .benefit-card .icon svg { width: 100%; height: 100%; stroke-width: 1.5; }
+    .benefit-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .benefit-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    .audience-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+    }
+    @media (max-width: 900px) { .audience-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .audience-grid { grid-template-columns: 1fr; } }
+    .audience-item { background: var(--surface); padding: 40px 28px; transition: all 0.4s; }
+    .audience-item:hover { background: var(--panel); }
+    .audience-item .idx { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--cyan); margin-bottom: 16px; }
+    .audience-item h3 { font-family: var(--font-display); font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; transition: color 0.3s; }
+    .audience-item:hover h3 { color: var(--cyan); }
+
+    .reg-cta { position: relative; overflow: hidden; text-align: center; padding: 120px 0; background: var(--secondary); }
+    .reg-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+    }
+    .reg-cta .glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.15), transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%); filter: blur(60px);
+      animation: pulseGlow 6s ease-in-out infinite;
+    }
+    .reg-cta h2 { position: relative; font-size: clamp(2rem, 5vw, 4rem); line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.03em; }
+    .reg-cta .sub { position: relative; font-family: var(--font-mono); font-size: 0.9rem; letter-spacing: 0.2em; color: var(--cyan); margin-bottom: 40px; }
+
+    .faq-list { max-width: 900px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .faq-q {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 26px 0; text-align: left; font-family: var(--font-display);
+      font-size: 1.05rem; font-weight: 500; gap: 20px; transition: color 0.3s;
+    }
+    .faq-q:hover { color: var(--cyan); }
+    .faq-q .plus { width: 24px; height: 24px; position: relative; flex-shrink: 0; transition: transform 0.4s; }
+    .faq-q .plus::before, .faq-q .plus::after {
+      content: ''; position: absolute; background: var(--cyan); top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    .faq-q .plus::before { width: 14px; height: 1.5px; }
+    .faq-q .plus::after { width: 1.5px; height: 14px; transition: transform 0.4s; }
+    .faq-item.open .faq-q .plus { transform: rotate(180deg); }
+    .faq-item.open .faq-q .plus::after { transform: translate(-50%,-50%) scaleY(0); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .faq-a .inner { padding: 0 0 26px; color: var(--muted); line-height: 1.75; font-size: 0.92rem; max-width: 720px; }
+
+    .final-cta { text-align: center; padding: 140px 0; position: relative; }
+    .final-cta .line-big { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 6vw, 5rem); line-height: 1.05; letter-spacing: -0.04em; }
+    .final-cta .line-big.threat { color: var(--muted); }
+    .final-cta .line-big.defend {
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; margin-bottom: 48px;
+    }
+    .final-cta .word { display: inline-block; opacity: 0; transform: translateY(20px); transition: all 0.5s; }
+    .final-cta.in-view .word { opacity: 1; transform: translateY(0); }
+
+    footer { position: relative; border-top: 1px solid var(--border); padding: 80px 0 40px; background: var(--secondary); overflow: hidden; }
+    .footer-bg-word {
+      position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%);
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(5rem, 20vw, 18rem); letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.02); white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; position: relative; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-brand { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .footer-brand span { color: var(--cyan); }
+    .footer-tag { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+    .footer-col h4 { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; font-weight: 400; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a, .footer-col span { font-size: 0.85rem; color: var(--muted); transition: color 0.3s; }
+    .footer-col a:hover { color: var(--cyan); }
+    .footer-bottom {
+      margin-top: 60px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--muted); text-transform: uppercase; position: relative;
+    }
+    .footer-bottom .legal { display: flex; gap: 24px; }
+    .footer-bottom a:hover { color: var(--cyan); }
+
+    /* Reveal animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal, .flow-step, .final-cta .word { opacity: 1 !important; transform: none !important; }
+      .bg-grid, .bg-scanline, .globe-ring, .bg-radial { animation: none !important; }
+      body { cursor: auto; }
+      .cursor-dot, .cursor-ring { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ BACKGROUND LAYERS ============ -->
+  <div class="bg-layers" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-radial r1"></div>
+    <div class="bg-radial r2"></div>
+    <canvas id="particle-canvas"></canvas>
+    <div class="bg-scanline"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <!-- ============ CUSTOM CURSOR ============ -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- ============ BREACH GAME (first thing user sees) ============ -->
+  <div class="breach-game" id="breachGame" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
+    <div class="game-frame" id="gameFrame">
+      <button class="game-skip" id="gameSkip">Skip Simulation →</button>
+
+      <div class="game-alert">
+        <span class="blip"></span>
+        <span class="text">⚠ CRITICAL — UNAUTHORIZED ACCESS ATTEMPT IN PROGRESS</span>
+        <span class="right" id="gameClock">T-00:90</span>
+      </div>
+
+      <div class="game-body">
+        <div class="game-header">
+          <h2 class="game-title" id="gameTitle">DEFEND THE MAINFRAME</h2>
+          <p class="game-subtitle">// MERIDIAN FIREWALL PROTOCOL v2.6 — OPERATOR AUTHORIZATION REQUIRED</p>
+        </div>
+
+        <div class="game-stats">
+          <div class="game-stat">
+            <div class="k">Firewall Integrity</div>
+            <div class="v good" id="statFirewall">100%</div>
+            <div class="bar-track"><div class="bar-fill firewall" id="barFirewall"></div></div>
+          </div>
+          <div class="game-stat">
+            <div class="k">System Integrity</div>
+            <div class="v good" id="statSystem">100%</div>
+            <div class="bar-track"><div class="bar-fill integrity" id="barSystem"></div></div>
+          </div>
+          <div class="game-stat">
+            <div class="k">Threat Level</div>
+            <div class="v warn" id="statThreat">LOW</div>
+            <div class="bar-track"><div class="bar-fill threat" id="barThreat" style="width:10%"></div></div>
+          </div>
+        </div>
+
+        <div class="game-log" id="gameLog" aria-live="polite"></div>
+
+        <div class="game-prompt" id="gamePrompt">
+          <div class="q-label">// OPERATOR DECISION REQUIRED</div>
+          <div class="q-text" id="questionText"></div>
+          <div class="game-options" id="gameOptions"></div>
+        </div>
+      </div>
+
+      <div class="game-footer">
+        <div class="dot-line">
+          <span class="d" id="node1"></span>
+          <span class="d" id="node2"></span>
+          <span class="d" id="node3"></span>
+          <span class="d" id="node4"></span>
+          <span style="margin-left:6px;">CORE NODES</span>
+        </div>
+        <div id="footerStatus">SCENARIO 1 / 6</div>
+      </div>
+
+      <div class="threat-flash" id="threatFlash"></div>
+
+      <!-- Result overlay -->
+      <div class="game-result" id="gameResult">
+        <div class="result-icon" id="resultIcon"></div>
+        <h3 id="resultTitle">ACCESS GRANTED</h3>
+        <p id="resultMsg"></p>
+        <div class="stat-row" id="resultStats"></div>
+        <button class="btn-enter" id="btnEnter">
+          <span>Enter Meridian Summit</span>
+          <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BOOT PRELOADER (after game completes) ============ -->
+  <div class="preloader hidden" id="preloader" role="status" aria-live="polite">
+    <div class="preloader-brand">
+      <span class="line"><span>MERIDIAN</span></span>
+      <span class="line"><span>SUMMIT '26</span></span>
+    </div>
+    <div class="preloader-bar"></div>
+    <div class="preloader-status" id="preloaderStatus">DECRYPTING SESSION<span class="cursor-blink">_</span></div>
+  </div>
+
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ============ SECTION INDICATOR ============ -->
+  <nav class="section-indicator" id="sectionIndicator" aria-label="Section navigation">
+    <button data-target="hero" aria-label="Hero">01</button>
+    <button data-target="about" aria-label="About">02</button>
+    <button data-target="threat" aria-label="Threat Landscape">03</button>
+    <button data-target="workshop" aria-label="Workshop">04</button>
+    <button data-target="speakers" aria-label="Speakers">05</button>
+    <button data-target="schedule" aria-label="Schedule">06</button>
+    <button data-target="experience" aria-label="Experience">07</button>
+    <button data-target="faq" aria-label="FAQ">08</button>
+  </nav>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo" aria-label="Meridian Summit home">
+        <span class="logo-mark">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="16" cy="16" r="13" stroke="#00E5FF" stroke-width="1.2" opacity="0.4"/>
+            <circle cx="16" cy="16" r="8" stroke="#00E5FF" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="16" cy="16" r="3" fill="#00E5FF"/>
+            <line x1="16" y1="3" x2="16" y2="8" stroke="#00E5FF" stroke-width="1.2"/>
+            <line x1="16" y1="24" x2="16" y2="29" stroke="#00E5FF" stroke-width="1.2"/>
+            <line x1="3" y1="16" x2="8" y2="16" stroke="#00E5FF" stroke-width="1.2"/>
+            <line x1="24" y1="16" x2="29" y2="16" stroke="#00E5FF" stroke-width="1.2"/>
+          </svg>
+        </span>
+        MERIDIAN <span>'26</span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#workshop">Workshop</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#experience">Experience</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <a href="#register" class="btn-register">Register Now</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <nav>
+      <a href="#about" style="animation-delay:0.1s"><span class="idx">01</span> ABOUT</a>
+      <a href="#workshop" style="animation-delay:0.15s"><span class="idx">02</span> WORKSHOP</a>
+      <a href="#speakers" style="animation-delay:0.2s"><span class="idx">03</span> SPEAKERS</a>
+      <a href="#schedule" style="animation-delay:0.25s"><span class="idx">04</span> SCHEDULE</a>
+      <a href="#experience" style="animation-delay:0.3s"><span class="idx">05</span> EXPERIENCE</a>
+      <a href="#faq" style="animation-delay:0.35s"><span class="idx">06</span> FAQ</a>
+      <a href="#register" style="animation-delay:0.4s"><span class="idx">07</span> REGISTER</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <div class="info">
+        APRIL 18, 2026<br>
+        MERIDIAN INNOVATION CENTER<br>
+        BENGALURU, INDIA
+      </div>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="X">X</a>
+        <a href="#" aria-label="YouTube">YouTube</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-label label-mono reveal">// CYBERSECURITY WORKSHOP 2026</div>
+            <h1 class="hero-title">
+              <span class="line1">MERIDIAN</span>
+              <span class="line2">SUMMIT '26</span>
+            </h1>
+            <div class="hero-headline reveal reveal-delay-2">One Day. One Summit. The Future of Cyber Defense.</div>
+            <p class="hero-desc reveal reveal-delay-3">
+              An immersive one-day cybersecurity workshop bringing together security professionals, students, researchers, developers and technology enthusiasts to explore the rapidly evolving world of digital defense.
+            </p>
+            <div class="hero-actions reveal reveal-delay-4">
+              <a href="#register" class="btn-primary">Register for Summit <span class="arrow">→</span></a>
+              <a href="#workshop" class="btn-secondary">Explore Workshop <span class="arrow">→</span></a>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#00E5FF"/>
+                  <stop offset="100%" stop-color="#8B5CFF"/>
+                </linearGradient>
+              </defs>
+              <circle cx="250" cy="250" r="200" fill="url(#globeGlow)"/>
+              <g class="globe-ring r1" style="transform-origin: 250px 250px;">
+                <ellipse cx="250" cy="250" rx="180" ry="60" fill="none" stroke="#00E5FF" stroke-width="0.8" opacity="0.5" transform="rotate(30 250 250)"/>
+                <ellipse cx="250" cy="250" rx="180" ry="60" fill="none" stroke="#246BFF" stroke-width="0.8" opacity="0.3" transform="rotate(150 250 250)"/>
+              </g>
+              <g class="globe-ring r2" style="transform-origin: 250px 250px;">
+                <ellipse cx="250" cy="250" rx="150" ry="50" fill="none" stroke="#8B5CFF" stroke-width="0.8" opacity="0.5" transform="rotate(70 250 250)"/>
+                <ellipse cx="250" cy="250" rx="150" ry="50" fill="none" stroke="#00E5FF" stroke-width="0.8" opacity="0.3" transform="rotate(-60 250 250)"/>
+              </g>
+              <g class="globe-ring r3" style="transform-origin: 250px 250px;">
+                <ellipse cx="250" cy="250" rx="120" ry="120" fill="none" stroke="#246BFF" stroke-width="0.6" opacity="0.3"/>
+                <circle cx="250" cy="250" r="100" fill="none" stroke="#00E5FF" stroke-width="0.6" opacity="0.4"/>
+              </g>
+              <g stroke="url(#lineGrad)" stroke-width="1" opacity="0.6">
+                <line x1="250" y1="250" x2="130" y2="130"/>
+                <line x1="250" y1="250" x2="380" y2="140"/>
+                <line x1="250" y1="250" x2="120" y2="360"/>
+                <line x1="250" y1="250" x2="390" y2="370"/>
+                <line x1="250" y1="250" x2="250" y2="90"/>
+                <line x1="250" y1="250" x2="410" y2="250"/>
+              </g>
+              <g fill="#00E5FF">
+                <circle cx="130" cy="130" r="4" class="node-pulse"/>
+                <circle cx="380" cy="140" r="4" class="node-pulse" style="animation-delay:0.4s"/>
+                <circle cx="120" cy="360" r="4" class="node-pulse" style="animation-delay:0.8s"/>
+                <circle cx="390" cy="370" r="4" class="node-pulse" style="animation-delay:1.2s"/>
+                <circle cx="250" cy="90" r="4" class="node-pulse" style="animation-delay:1.6s"/>
+                <circle cx="410" cy="250" r="4" class="node-pulse" style="animation-delay:2s"/>
+              </g>
+              <circle cx="250" cy="250" r="10" fill="#00E5FF" opacity="0.9"/>
+              <circle cx="250" cy="250" r="20" fill="none" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
+              <circle cx="250" cy="250" r="30" fill="none" stroke="#00E5FF" stroke-width="0.5" opacity="0.3"/>
+              <g style="transform-origin: 250px 250px; animation: rotate 8s linear infinite;">
+                <path d="M250 250 L250 70 A180 180 0 0 1 400 160 Z" fill="url(#globeGlow)" opacity="0.3"/>
+              </g>
+            </svg>
+            <div class="hero-tag t1">THREAT DETECTED</div>
+            <div class="hero-tag t2">NETWORK SECURE</div>
+            <div class="hero-tag t3">ENCRYPTION ACTIVE</div>
+            <div class="hero-tag t4">SYSTEM ONLINE</div>
+          </div>
+        </div>
+
+        <div class="hero-strip reveal">
+          <div class="big">01 <span class="unit">DAY</span></div>
+          <div class="big">01 <span class="unit">SUMMIT</span></div>
+          <div class="big">∞ <span class="unit">POSSIBILITIES</span></div>
+          <div class="meta">
+            <div class="meta-item"><span class="k">Date</span><span class="v">APRIL 18, 2026</span></div>
+            <div class="meta-item"><span class="k">Location</span><span class="v">BENGALURU, INDIA</span></div>
+            <div class="meta-item"><span class="k">Format</span><span class="v">IN-PERSON</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <span>SCROLL TO EXPLORE</span>
+        <div class="track"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">01 / ABOUT THE SUMMIT</span>
+          <h2 class="section-title">WHERE CYBER DEFENSE MEETS <span class="grad">THE FUTURE.</span></h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-statement reveal">
+            Meridian Summit '26 is a single day built to <span class="hl">sharpen the instincts</span> of the people who defend the digital world.
+          </div>
+          <div class="about-text reveal reveal-delay-2">
+            <p>We bring together practitioners, researchers, students and builders for one focused day of workshops, keynotes and live challenges. No filler. No fluff. Just the tactics, tools and thinking that matter in the modern threat landscape.</p>
+            <p>From ethical hacking to AI-driven defense, every session is designed to be practical, current and immediately applicable. You leave with new skills, new connections and a sharper view of what's coming next.</p>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card reveal"><div class="stat-num" data-count="1">01</div><div class="stat-label">Day</div></div>
+          <div class="stat-card reveal reveal-delay-1"><div class="stat-num" data-count="6" data-suffix="+">06+</div><div class="stat-label">Expert Sessions</div></div>
+          <div class="stat-card reveal reveal-delay-2"><div class="stat-num" data-count="100" data-suffix="+">100+</div><div class="stat-label">Participants</div></div>
+          <div class="stat-card reveal reveal-delay-3"><div class="stat-num">∞</div><div class="stat-label">Connections</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THREAT LANDSCAPE -->
+    <section id="threat">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">02 / THE THREAT LANDSCAPE</span>
+          <h2 class="section-title">EVERY NODE IS A <span class="grad">POTENTIAL VECTOR.</span></h2>
+        </div>
+        <div class="threat-wrap">
+          <div class="threat-canvas reveal">
+            <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interactive threat landscape network">
+              <defs>
+                <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <g id="threatLines">
+                <line class="threat-line" data-from="AI" data-to="Cloud" x1="300" y1="120" x2="440" y2="200"/>
+                <line class="threat-line" data-from="AI" data-to="Identity" x1="300" y1="120" x2="160" y2="200"/>
+                <line class="threat-line" data-from="AI" data-to="Data" x1="300" y1="120" x2="300" y2="260"/>
+                <line class="threat-line" data-from="Cloud" data-to="Network" x1="440" y1="200" x2="480" y2="340"/>
+                <line class="threat-line" data-from="Cloud" data-to="Data" x1="440" y1="200" x2="300" y2="260"/>
+                <line class="threat-line" data-from="Identity" data-to="Endpoint" x1="160" y1="200" x2="120" y2="340"/>
+                <line class="threat-line" data-from="Identity" data-to="Data" x1="160" y1="200" x2="300" y2="260"/>
+                <line class="threat-line" data-from="Data" data-to="Network" x1="300" y1="260" x2="480" y2="340"/>
+                <line class="threat-line" data-from="Data" data-to="Endpoint" x1="300" y1="260" x2="120" y2="340"/>
+                <line class="threat-line" data-from="Data" data-to="IoT" x1="300" y1="260" x2="300" y2="420"/>
+                <line class="threat-line" data-from="Network" data-to="IoT" x1="480" y1="340" x2="300" y2="420"/>
+                <line class="threat-line" data-from="Endpoint" data-to="IoT" x1="120" y1="340" x2="300" y2="420"/>
+              </g>
+              <g class="threat-node" data-node="AI" data-threat="72" data-vectors="18">
+                <circle cx="300" cy="120" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="300" cy="120" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="300" y="90">AI</text>
+              </g>
+              <g class="threat-node" data-node="Cloud" data-threat="64" data-vectors="14">
+                <circle cx="440" cy="200" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="440" cy="200" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="440" y="170">CLOUD</text>
+              </g>
+              <g class="threat-node" data-node="Identity" data-threat="81" data-vectors="22">
+                <circle cx="160" cy="200" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="160" cy="200" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="160" y="170">IDENTITY</text>
+              </g>
+              <g class="threat-node" data-node="Data" data-threat="58" data-vectors="9">
+                <circle cx="300" cy="260" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="300" cy="260" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="300" y="300">DATA</text>
+              </g>
+              <g class="threat-node" data-node="Network" data-threat="68" data-vectors="12">
+                <circle cx="480" cy="340" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="480" cy="340" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="480" y="310">NETWORK</text>
+              </g>
+              <g class="threat-node" data-node="Endpoint" data-threat="76" data-vectors="16">
+                <circle cx="120" cy="340" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="120" cy="340" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="120" y="310">ENDPOINT</text>
+              </g>
+              <g class="threat-node" data-node="IoT" data-threat="52" data-vectors="7">
+                <circle cx="300" cy="420" r="30" fill="url(#nodeGlow)"/>
+                <circle class="core" cx="300" cy="420" r="10" fill="#0D1420" stroke="#00E5FF" stroke-width="1.5"/>
+                <text x="300" y="460">IOT</text>
+              </g>
+            </svg>
+          </div>
+          <div class="threat-panel reveal reveal-delay-2" id="threatPanel">
+            <div class="placeholder">HOVER A NODE TO INSPECT THE VECTOR</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSHOP -->
+    <section id="workshop">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">03 / THE WORKSHOP</span>
+          <h2 class="section-title">ONE DAY. INTENSE LEARNING. <span class="grad">REAL-WORLD SECURITY.</span></h2>
+        </div>
+        <div class="workshop-grid">
+          <article class="workshop-card reveal">
+            <div class="num">01</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <h3>Cyber Threat Intelligence</h3>
+            <p>Track adversaries, understand their playbooks and turn raw signals into actionable defense.</p>
+            <div class="tag"><span>INTEL</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal reveal-delay-1">
+            <div class="num">02</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3>Ethical Hacking</h3>
+            <p>Think like an attacker. Learn the tools, techniques and mindset behind modern penetration testing.</p>
+            <div class="tag"><span>OFFENSIVE</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal reveal-delay-2">
+            <div class="num">03</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg></div>
+            <h3>AI & Cybersecurity</h3>
+            <p>Explore how machine learning is reshaping both attack automation and defensive response.</p>
+            <div class="tag"><span>AI</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal reveal-delay-3">
+            <div class="num">04</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+            <h3>Digital Forensics</h3>
+            <p>Reconstruct incidents, preserve evidence and follow the digital trail after a breach.</p>
+            <div class="tag"><span>FORENSICS</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal">
+            <div class="num">05</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <h3>Network Security</h3>
+            <p>Harden infrastructure, detect lateral movement and defend the perimeter and beyond.</p>
+            <div class="tag"><span>DEFENSE</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal reveal-delay-1">
+            <div class="num">06</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3>Incident Response</h3>
+            <p>Contain, eradicate and recover. Build the playbooks that matter when minutes count.</p>
+            <div class="tag"><span>RESPONSE</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal reveal-delay-2">
+            <div class="num">07</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+            <h3>Cloud Security</h3>
+            <p>Secure multi-cloud environments, IAM policies and the shared responsibility model.</p>
+            <div class="tag"><span>CLOUD</span><span class="arrow">→</span></div>
+          </article>
+          <article class="workshop-card reveal reveal-delay-3">
+            <div class="num">08</div>
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+            <h3>Security Operations</h3>
+            <p>Run a modern SOC. Detection engineering, triage and the metrics that actually matter.</p>
+            <div class="tag"><span>SOC</span><span class="arrow">→</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED WORKSHOP -->
+    <section class="featured" id="featured">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">FEATURED / ATTACK SIMULATION</span>
+          <h2 class="section-title">BREAK THE ATTACK. <span class="grad">BUILD THE DEFENSE.</span></h2>
+        </div>
+        <div class="flow-wrap">
+          <div class="flow-step" data-step="1"><span class="step-num">01</span><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><h4>Attack</h4><p>Adversary initiates the intrusion.</p></div>
+          <div class="flow-step" data-step="2"><span class="step-num">02</span><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h4>Detection</h4><p>Signals surface across the estate.</p></div>
+          <div class="flow-step" data-step="3"><span class="step-num">03</span><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 21l-4.35-4.35"/><circle cx="11" cy="11" r="8"/></svg></div><h4>Analysis</h4><p>Context, scope and root cause.</p></div>
+          <div class="flow-step" data-step="4"><span class="step-num">04</span><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Response</h4><p>Contain, eradicate, recover.</p></div>
+          <div class="flow-step" data-step="5"><span class="step-num">05</span><div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Defense</h4><p>Harden, automate, evolve.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPEAKERS -->
+    <section id="speakers">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">04 / SPEAKERS</span>
+          <h2 class="section-title">PEOPLE WHO DEFEND <span class="grad">THE DIGITAL WORLD.</span></h2>
+        </div>
+        <div class="speakers-grid">
+          <article class="speaker-card reveal">
+            <div class="speaker-portrait"><div class="avatar">AR</div></div>
+            <div class="speaker-info"><h3>[Speaker Name]</h3><div class="role">Cybersecurity Researcher</div><div class="org">[Organization]</div><div class="expertise">Expertise: Threat Intelligence</div></div>
+          </article>
+          <article class="speaker-card reveal reveal-delay-1">
+            <div class="speaker-portrait"><div class="avatar">MK</div></div>
+            <div class="speaker-info"><h3>[Speaker Name]</h3><div class="role">Ethical Hacker</div><div class="org">[Organization]</div><div class="expertise">Expertise: Offensive Security</div></div>
+          </article>
+          <article class="speaker-card reveal reveal-delay-2">
+            <div class="speaker-portrait"><div class="avatar">SP</div></div>
+            <div class="speaker-info"><h3>[Speaker Name]</h3><div class="role">AI Security Lead</div><div class="org">[Organization]</div><div class="expertise">Expertise: AI &amp; Defense</div></div>
+          </article>
+          <article class="speaker-card reveal reveal-delay-3">
+            <div class="speaker-portrait"><div class="avatar">LR</div></div>
+            <div class="speaker-info"><h3>[Speaker Name]</h3><div class="role">Forensics Specialist</div><div class="org">[Organization]</div><div class="expertise">Expertise: Digital Forensics</div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">05 / SCHEDULE</span>
+          <h2 class="section-title">YOUR DAY <span class="grad">INSIDE MERIDIAN.</span></h2>
+        </div>
+        <div class="timeline" id="timeline">
+          <div class="timeline-item"><div class="time">09:00</div><div class="title">Registration &amp; Networking</div><div class="type">OPEN</div></div>
+          <div class="timeline-item"><div class="time">09:30</div><div class="title">Opening Ceremony</div><div class="type">KEYNOTE</div></div>
+          <div class="timeline-item"><div class="time">10:00</div><div class="title">Keynote — The New Cyber Threat Landscape</div><div class="type">KEYNOTE</div></div>
+          <div class="timeline-item"><div class="time">11:00</div><div class="title">Workshop — Ethical Hacking</div><div class="type">HANDS-ON</div></div>
+          <div class="timeline-item"><div class="time">12:30</div><div class="title">Break</div><div class="type">BREAK</div></div>
+          <div class="timeline-item"><div class="time">13:30</div><div class="title">Workshop — AI in Cybersecurity</div><div class="type">HANDS-ON</div></div>
+          <div class="timeline-item"><div class="time">15:00</div><div class="title">Live Security Challenge</div><div class="type">LIVE</div></div>
+          <div class="timeline-item"><div class="time">16:00</div><div class="title">Expert Panel</div><div class="type">PANEL</div></div>
+          <div class="timeline-item"><div class="time">17:00</div><div class="title">Closing &amp; Networking</div><div class="type">CLOSE</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CYBER CHALLENGE -->
+    <section id="challenge">
+      <div class="container">
+        <div class="challenge-wrap">
+          <div>
+            <span class="label-mono reveal" style="display:block;margin-bottom:20px;">06 / LIVE CYBER CHALLENGE</span>
+            <h2 class="section-title reveal" style="margin-bottom:24px;">CAN YOU <span class="grad">BREAK THE SYSTEM?</span></h2>
+            <p class="reveal reveal-delay-1" style="color:var(--muted);line-height:1.8;margin-bottom:32px;max-width:520px;">
+              Test your instincts in a controlled cybersecurity challenge designed to simulate real-world attack and defense scenarios.
+            </p>
+            <a href="#register" class="btn-primary reveal reveal-delay-2">Enter the Challenge <span class="arrow">→</span></a>
+          </div>
+          <div class="terminal reveal reveal-delay-2" aria-hidden="true">
+            <div class="terminal-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="title">meridian@challenge:~</span>
+            </div>
+            <div class="terminal-body">
+              <div class="line" style="animation-delay:0.2s"><span class="prompt">&gt;</span> scanning network...</div>
+              <div class="line" style="animation-delay:0.8s"><span class="prompt">&gt;</span> 192.168.01.24</div>
+              <div class="line" style="animation-delay:1.4s"><span class="prompt">&gt;</span> <span class="warn">vulnerability detected</span></div>
+              <div class="line" style="animation-delay:2.0s"><span class="prompt">&gt;</span> privilege escalation...</div>
+              <div class="line" style="animation-delay:2.6s"><span class="prompt">&gt;</span> <span class="danger">ACCESS DENIED</span></div>
+              <div class="line" style="animation-delay:3.2s"><span class="prompt">&gt;</span> <span class="ok">DEFENSE SYSTEM ACTIVATED</span></div>
+              <div class="line" style="animation-delay:3.8s"><span class="prompt">&gt;</span> awaiting operator input<span class="caret"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">07 / EXPERIENCE</span>
+          <h2 class="section-title">MORE THAN <span class="grad">A WORKSHOP.</span></h2>
+        </div>
+        <div class="experience-scroll">
+          <div class="exp-card reveal"><div class="num">01 / LEARN</div><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><h3>Learn</h3><p>Absorb current tactics, tools and frameworks from practitioners who work the front lines every day.</p></div>
+          <div class="exp-card reveal reveal-delay-1"><div class="num">02 / BUILD</div><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3>Build</h3><p>Get hands-on with tools, labs and real configurations. Leave with things you've actually done.</p></div>
+          <div class="exp-card reveal reveal-delay-2"><div class="num">03 / DEFEND</div><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Defend</h3><p>Learn how to detect, respond and harden across cloud, endpoint, network and identity.</p></div>
+          <div class="exp-card reveal reveal-delay-3"><div class="num">04 / CONNECT</div><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div><h3>Connect</h3><p>Meet researchers, engineers, students and operators who share the same obsession with security.</p></div>
+          <div class="exp-card reveal reveal-delay-4"><div class="num">05 / COMPETE</div><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></div><h3>Compete</h3><p>Put your skills against the clock in a controlled, live security challenge built for the day.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section id="benefits">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">08 / WHY ATTEND</span>
+          <h2 class="section-title">WHY <span class="grad">MERIDIAN?</span></h2>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit-card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Learn from Practitioners</h3><p>Sessions led by people who build, break and defend systems for a living.</p></div>
+          <div class="benefit-card reveal reveal-delay-1"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Understand Emerging Threats</h3><p>Get ahead of the attack surface that's forming right now, not last year.</p></div>
+          <div class="benefit-card reveal reveal-delay-2"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div><h3>Explore AI Security</h3><p>Understand how machine learning is changing both offense and defense.</p></div>
+          <div class="benefit-card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3>Build Practical Skills</h3><p>Hands-on labs and exercises you can carry straight into your work.</p></div>
+          <div class="benefit-card reveal reveal-delay-1"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></div><h3>Network with Professionals</h3><p>Connect with the people shaping cyber defense across industries.</p></div>
+          <div class="benefit-card reveal reveal-delay-2"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h3>Discover the Future</h3><p>See where cyber defense is heading and position yourself ahead of it.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section id="audience">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="label-mono">09 / AUDIENCE</span>
+          <h2 class="section-title">BUILT FOR <span class="grad">THE CURIOUS.</span></h2>
+        </div>
+        <div class="audience-grid">
+          <div class="audience-item reveal"><div class="idx">01</div><h3>STUDENTS</h3></div>
+          <div class="audience-item reveal reveal-delay-1"><div class="idx">02</div><h3>DEVELOPERS</h3></div>
+          <div class="audience-item reveal reveal-delay-2"><div class="idx">03</div><h3>SECURITY PROFESSIONALS</h3></div>
+          <div class="audience-item reveal"><div class="idx">04</div><h3>RESEARCHERS</h3></div>
+          <div class="audience-item reveal reveal-delay-1"><div class="idx">05</div><h3>IT PROFESSIONALS</h3></div>
+          <div class="audience-item reveal reveal-delay-2"><div class="idx">06</div><h3>TECH ENTHUSIASTS</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTRATION CTA -->
+    <section class="reg-cta" id="register">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="container" style="position:relative;">
+        <h2 class="reveal">READY TO ENTER<br>THE SECURE FUTURE?</h2>
+        <div class="sub reveal reveal-delay-1">MERIDIAN SUMMIT '26</div>
+        <a href="#" class="btn-primary reveal reveal-delay-2" id="registerBtn">Register Now <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-head reveal" style="text-align:center;">
+          <span class="label-mono">10 / FAQ</span>
+          <h2 class="section-title" style="margin:0 auto;">FREQUENTLY ASKED <span class="grad">QUESTIONS</span></h2>
+        </div>
+        <div class="faq-list" id="faqList">
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Who can attend? <span class="plus"></span></button><div class="faq-a"><div class="inner">Anyone with an interest in cybersecurity — students, developers, IT professionals, researchers and enthusiasts are all welcome.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Is this workshop beginner friendly? <span class="plus"></span></button><div class="faq-a"><div class="inner">Yes. Sessions are structured so beginners can follow, while advanced attendees still find depth in the labs and panels.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Is prior cybersecurity experience required? <span class="plus"></span></button><div class="faq-a"><div class="inner">No prior experience is required. Curiosity and a laptop are enough to get full value from the day.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What should I bring? <span class="plus"></span></button><div class="faq-a"><div class="inner">A laptop, charger, and a valid ID. We'll provide network access, labs and workshop materials.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Is a certificate provided? <span class="plus"></span></button><div class="faq-a"><div class="inner">Yes. All attendees who complete the workshop will receive a certificate of participation.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Will there be hands-on activities? <span class="plus"></span></button><div class="faq-a"><div class="inner">Absolutely. The day includes guided labs, a live security challenge and practical exercises throughout.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How do I register? <span class="plus"></span></button><div class="faq-a"><div class="inner">Click the "Register Now" button anywhere on the page to be taken to the registration form.</div></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Where will the event take place? <span class="plus"></span></button><div class="faq-a"><div class="inner">The event will be held at the Meridian Innovation Center in Bengaluru, India. Full address details are shared after registration.</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="finalCta">
+      <div class="container">
+        <div class="line-big threat" id="finalLine1">THE FUTURE IS BEING ATTACKED.</div>
+        <div class="line-big defend" id="finalLine2">BE READY TO DEFEND IT.</div>
+        <a href="#register" class="btn-primary reveal">Join Meridian Summit '26 <span class="arrow">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bg-word" aria-hidden="true">MERIDIAN</div>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">MERIDIAN <span>'26</span></div>
+          <div class="footer-tag">Secure the Future.</div>
+        </div>
+        <div class="footer-col"><h4>Event</h4><ul><li><a href="#about">About</a></li><li><a href="#workshop">Workshop</a></li><li><a href="#speakers">Speakers</a></li><li><a href="#schedule">Schedule</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div class="footer-col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">X</a></li><li><a href="#">YouTube</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:hello@meridiansummit.io">hello@meridiansummit.io</a></li><li><a href="tel:+910000000000">+91 00000 00000</a></li><li><span>Bengaluru, India</span></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 MERIDIAN SUMMIT. ALL RIGHTS RESERVED.</span>
+        <div class="legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+      /* ========================================================================
+         BREACH DEFENSE GAME
+         A short interactive challenge: user must answer cybersecurity questions
+         to defend the mainframe from an active attack.
+         ======================================================================== */
+      var game = document.getElementById('breachGame');
+      var gameFrame = document.getElementById('gameFrame');
+      var gameLog = document.getElementById('gameLog');
+      var questionText = document.getElementById('questionText');
+      var gameOptions = document.getElementById('gameOptions');
+      var gameFooter = document.getElementById('footerStatus');
+      var resultOverlay = document.getElementById('gameResult');
+      var resultTitle = document.getElementById('resultTitle');
+      var resultMsg = document.getElementById('resultMsg');
+      var resultStats = document.getElementById('resultStats');
+      var resultIcon = document.getElementById('resultIcon');
+      var btnEnter = document.getElementById('btnEnter');
+      var gameSkip = document.getElementById('gameSkip');
+      var threatFlash = document.getElementById('threatFlash');
+      var clockEl = document.getElementById('gameClock');
+      var statFirewall = document.getElementById('statFirewall');
+      var statSystem = document.getElementById('statSystem');
+      var statThreat = document.getElementById('statThreat');
+      var barFirewall = document.getElementById('barFirewall');
+      var barSystem = document.getElementById('barSystem');
+      var barThreat = document.getElementById('barThreat');
+      var nodes = [document.getElementById('node1'), document.getElementById('node2'), document.getElementById('node3'), document.getElementById('node4')];
+
+      var gameState = {
+        step: 0,
+        firewall: 100,
+        system: 100,
+        threat: 10,
+        score: 0,
+        timeLeft: 90,
+        timer: null,
+        locked: false,
+        correctCount: 0
+      };
+
+      // Question bank — realistic cybersecurity decisions
+      var questions = [
+        {
+          q: 'Anomalous traffic detected from an unknown IP targeting port 22. What is your <span class="highlight">first action</span>?',
+          options: [
+            { text: 'Block the IP at the firewall', correct: true,  log: 'IP blocked at perimeter. Attack surface reduced.' },
+            { text: 'Ignore — port 22 is standard',   correct: false, log: 'SSH brute-force succeeded. System breached.' },
+            { text: 'Restart the server',             correct: false, log: 'Restart failed — connection persists.' },
+            { text: 'Reply to the attacker',          correct: false, log: 'Social engineering risk. Operator error.' }
+          ]
+        },
+        {
+          q: 'Multiple failed login attempts detected on an admin account. Recommended response?',
+          options: [
+            { text: 'Temporarily lock the account',   correct: true,  log: 'Account locked. Brute-force mitigated.' },
+            { text: 'Change the password to "admin123"', correct: false, log: 'Trivial password. Account compromised.' },
+            { text: 'Wait and observe',                correct: false, log: 'Attacker gained access during delay.' },
+            { text: 'Disable all accounts',            correct: false, log: 'Overkill — business services down.' }
+          ]
+        },
+        {
+          q: 'A suspicious email with a malicious attachment reaches the CEO. Best <span class="highlight">containment</span> step?',
+          options: [
+            { text: 'Quarantine the email across all inboxes', correct: true,  log: 'Email quarantined. Spread prevented.' },
+            { text: 'Forward it to the team',                  correct: false, log: 'Malware spread via internal email.' },
+            { text: 'Delete only from CEO inbox',              correct: false, log: 'Other recipients still infected.' },
+            { text: 'Open it in a sandbox',                    correct: true,  log: 'Sandbox analysis reveals payload hash.' }
+          ],
+          allowMultiple: true
+        },
+        {
+          q: 'Ransomware encrypting files on a shared drive. Immediate priority?',
+          options: [
+            { text: 'Isolate the infected host from network', correct: true,  log: 'Host isolated. Lateral spread halted.' },
+            { text: 'Pay the ransom',                          correct: false, log: 'Payment encouraged — no key provided.' },
+            { text: 'Reboot the host',                         correct: false, log: 'Encryption resumed after reboot.' },
+            { text: 'Notify all users by email',               correct: false, log: 'Alert caused panic and click-throughs.' }
+          ]
+        },
+        {
+          q: 'New vulnerability disclosed in a library used across production. Action?',
+          options: [
+            { text: 'Assess exposure and patch within SLA',   correct: true,  log: 'Patch deployed. CVE remediated.' },
+            { text: 'Schedule patch for next quarter',         correct: false, log: 'Exploit window left open for 90 days.' },
+            { text: 'Disable the service entirely',            correct: false, log: 'Service outage affected customers.' },
+            { text: 'Monitor logs only',                       correct: false, log: 'Active exploitation detected too late.' }
+          ]
+        },
+        {
+          q: 'Anomalous outbound traffic to an unknown C2 server detected. Best next step?',
+          options: [
+            { text: 'Block the C2 and capture forensic memory', correct: true,  log: 'C2 blocked. Memory artefacts secured.' },
+            { text: 'Wait for more data',                       correct: false, log: 'Data exfiltration increased 400%.' },
+            { text: 'Format the server',                        correct: false, log: 'Evidence destroyed. Root cause lost.' },
+            { text: 'Ignore — likely a false positive',         correct: false, log: 'Confirmed C2 beacon. Breach ongoing.' }
+          ]
+        }
+      ];
+
+      function logLine(text, type) {
+        var line = document.createElement('div');
+        line.className = 'log-line ' + (type || 'sys');
+        var time = new Date();
+        var hh = String(time.getHours()).padStart(2, '0');
+        var mm = String(time.getMinutes()).padStart(2, '0');
+        var ss = String(time.getSeconds()).padStart(2, '0');
+        line.innerHTML = '<span class="t">[' + hh + ':' + mm + ':' + ss + ']</span>' + text;
+        gameLog.appendChild(line);
+        gameLog.scrollTop = gameLog.scrollHeight;
+      }
+
+      function updateStats() {
+        statFirewall.textContent = gameState.firewall + '%';
+        statSystem.textContent = gameState.system + '%';
+        barFirewall.style.width = gameState.firewall + '%';
+        barSystem.style.width = gameState.system + '%';
+        barThreat.style.width = gameState.threat + '%';
+
+        statFirewall.className = 'v ' + (gameState.firewall > 60 ? 'good' : gameState.firewall > 30 ? 'warn' : 'bad');
+        statSystem.className = 'v ' + (gameState.system > 60 ? 'good' : gameState.system > 30 ? 'warn' : 'bad');
+
+        var threatLabel = gameState.threat < 25 ? 'LOW' : gameState.threat < 55 ? 'MODERATE' : gameState.threat < 80 ? 'HIGH' : 'CRITICAL';
+        statThreat.textContent = threatLabel;
+        statThreat.className = 'v ' + (gameState.threat < 25 ? 'good' : gameState.threat < 55 ? 'warn' : 'bad');
+
+        var aliveNodes = Math.max(0, Math.round((gameState.firewall / 100) * 4));
+        nodes.forEach(function(n, i) {
+          n.classList.toggle('off', i >= aliveNodes);
+        });
+      }
+
+      function flashThreat() {
+        threatFlash.classList.add('on');
+        setTimeout(function() { threatFlash.classList.remove('on'); }, 250);
+      }
+
+      function startTimer() {
+        gameState.timer = setInterval(function() {
+          if (gameState.locked) return;
+          gameState.timeLeft--;
+          var m = String(Math.floor(gameState.timeLeft / 60)).padStart(2, '0');
+          var s = String(gameState.timeLeft % 60).padStart(2, '0');
+          clockEl.textContent = 'T-' + m + ':' + s;
+          if (gameState.timeLeft <= 0) {
+            clearInterval(gameState.timer);
+            endGame(false);
+          }
+        }, 1000);
+      }
+
+      function renderQuestion() {
+        if (gameState.step >= questions.length) {
+          endGame(true);
+          return;
+        }
+        var q = questions[gameState.step];
+        questionText.innerHTML = q.q;
+        gameOptions.innerHTML = '';
+        gameFooter.textContent = 'SCENARIO ' + (gameState.step + 1) + ' / ' + questions.length;
+
+        q.options.forEach(function(opt, i) {
+          var btn = document.createElement('button');
+          btn.className = 'game-option';
+          btn.innerHTML = '<span class="key">' + (i + 1) + '</span><span>' + opt.text + '</span>';
+          btn.addEventListener('click', function() { selectOption(btn, opt, q); });
+          gameOptions.appendChild(btn);
+        });
+
+        logLine('> INCOMING THREAT VECTOR #' + (gameState.step + 1) + ' DETECTED', 'danger');
+      }
+
+      function selectOption(btn, opt, q) {
+        if (gameState.locked) return;
+        gameState.locked = true;
+
+        var allBtns = gameOptions.querySelectorAll('.game-option');
+        allBtns.forEach(function(b) { b.disabled = true; });
+
+        if (opt.correct) {
+          btn.classList.add('correct');
+          gameState.correctCount++;
+          gameState.score += 100;
+          gameState.firewall = Math.min(100, gameState.firewall + 4);
+          gameState.system = Math.min(100, gameState.system + 2);
+          gameState.threat = Math.max(5, gameState.threat - 12);
+          logLine('✓ ' + opt.log, 'success');
+        } else {
+          btn.classList.add('wrong');
+          flashThreat();
+          gameState.firewall = Math.max(0, gameState.firewall - 18);
+          gameState.system = Math.max(0, gameState.system - 14);
+          gameState.threat = Math.min(100, gameState.threat + 22);
+          logLine('✗ ' + opt.log, 'danger');
+          // highlight correct answer
+          allBtns.forEach(function(b, i) {
+            if (q.options[i].correct) b.classList.add('correct');
+          });
+        }
+
+        updateStats();
+
+        setTimeout(function() {
+          gameState.step++;
+          gameState.locked = false;
+          if (gameState.firewall <= 0 || gameState.system <= 0) {
+            clearInterval(gameState.timer);
+            endGame(false);
+          } else {
+            renderQuestion();
+          }
+        }, 1400);
+      }
+
+      function endGame(won) {
+        clearInterval(gameState.timer);
+        gameState.locked = true;
+        resultOverlay.classList.add('show');
+        resultOverlay.classList.toggle('win', won);
+        resultOverlay.classList.toggle('lose', !won);
+
+        if (won) {
+          resultIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>';
+          resultTitle.textContent = 'ACCESS GRANTED';
+          resultMsg.textContent = 'Mainframe secured. Firewall integrity maintained. You have what it takes to defend the digital world.';
+        } else {
+          resultIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M15 9l-6 6M9 9l6 6"/></svg>';
+          resultTitle.textContent = 'SYSTEM BREACHED';
+          resultMsg.textContent = 'The firewall was overwhelmed. But every defender learns from failure. Rejoin the fight at Meridian Summit.';
+        }
+
+        var scenarios = gameState.step;
+        var pct = Math.round((gameState.correctCount / questions.length) * 100);
+        resultStats.innerHTML =
+          '<span>SCORE <strong>' + gameState.score + '</strong></span>' +
+          '<span>CORRECT <strong>' + gameState.correctCount + '/' + questions.length + '</strong></span>' +
+          '<span>INTEGRITY <strong>' + gameState.firewall + '%</strong></span>';
+
+        logLine('> SIMULATION COMPLETE — ' + (won ? 'DEFENSE SUCCESSFUL' : 'DEFENSE FAILED'), won ? 'success' : 'danger');
+      }
+
+      function startGame() {
+        updateStats();
+        logLine('> MERIDIAN FIREWALL PROTOCOL v2.6 INITIALIZED', 'info');
+        logLine('> UNAUTHORIZED ACCESS ATTEMPT DETECTED', 'danger');
+        logLine('> OPERATOR AUTHORIZATION REQUIRED — RESPOND TO EACH VECTOR', 'warn');
+        startTimer();
+        renderQuestion();
+      }
+
+      function skipGame() {
+        clearInterval(gameState.timer);
+        game.classList.add('hidden');
+        document.body.style.overflow = '';
+        showPreloader();
+      }
+
+      btnEnter.addEventListener('click', function() {
+        game.classList.add('hidden');
+        document.body.style.overflow = '';
+        showPreloader();
+      });
+
+      gameSkip.addEventListener('click', skipGame);
+
+      // Kick off the game as the very first thing
+      document.body.style.overflow = 'hidden';
+      setTimeout(startGame, 300);
+
+      /* ========================================================================
+         PRELOADER (after game) — brief, then reveal the site
+         ======================================================================== */
+      function showPreloader() {
+        var preloader = document.getElementById('preloader');
+        preloader.classList.remove('hidden');
+        var statusEl = document.getElementById('preloaderStatus');
+        var statuses = ['DECRYPTING SESSION_', 'VERIFYING IDENTITY_', 'AUTHORIZATION CONFIRMED_', 'WELCOME, OPERATOR_'];
+        var idx = 0;
+        var statusInt = setInterval(function() {
+          idx = (idx + 1) % statuses.length;
+          statusEl.innerHTML = statuses[idx] + '<span class="cursor-blink">_</span>';
+        }, 400);
+
+        setTimeout(function() {
+          clearInterval(statusInt);
+          preloader.classList.add('hidden');
+          initReveals();
+          initParticles();
+        }, 1600);
+      }
+
+      /* ========================================================================
+         CUSTOM CURSOR
+         ======================================================================== */
+      if (!isTouch && !prefersReduced) {
+        var dot = document.getElementById('cursorDot');
+        var ring = document.getElementById('cursorRing');
+        var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        var ringX = mouseX, ringY = mouseY;
+        var dotX = mouseX, dotY = mouseY;
+
+        document.addEventListener('mousemove', function(e) { mouseX = e.clientX; mouseY = e.clientY; });
+
+        (function animateCursor() {
+          dotX += (mouseX - dotX) * 0.9;
+          dotY += (mouseY - dotY) * 0.9;
+          ringX += (mouseX - ringX) * 0.18;
+          ringY += (mouseY - ringY) * 0.18;
+          dot.style.transform = 'translate(' + dotX + 'px,' + dotY + 'px) translate(-50%,-50%)';
+          ring.style.transform = 'translate(' + ringX + 'px,' + ringY + 'px) translate(-50%,-50%)';
+          requestAnimationFrame(animateCursor);
+        })();
+
+        function bindCursor() {
+          document.querySelectorAll('a, button, .game-option').forEach(function(el) {
+            el.addEventListener('mouseenter', function() { ring.classList.add('hover-link'); });
+            el.addEventListener('mouseleave', function() { ring.classList.remove('hover-link'); });
+          });
+          document.querySelectorAll('.btn-primary, .btn-secondary, .btn-register, .btn-enter').forEach(function(el) {
+            el.addEventListener('mouseenter', function() { ring.classList.add('hover-button'); });
+            el.addEventListener('mouseleave', function() { ring.classList.remove('hover-button'); });
+          });
+          document.querySelectorAll('.workshop-card, .speaker-card, .benefit-card, .stat-card, .exp-card, .audience-item, .threat-node').forEach(function(el) {
+            el.addEventListener('mouseenter', function() { ring.classList.add('hover-card'); });
+            el.addEventListener('mouseleave', function() { ring.classList.remove('hover-card'); });
+          });
+        }
+        bindCursor();
+      } else {
+        document.getElementById('cursorDot').style.display = 'none';
+        document.getElementById('cursorRing').style.display = 'none';
+      }
+
+      /* ========================================================================
+         PARTICLE BACKGROUND
+         ======================================================================== */
+      var particlesInited = false;
+      function initParticles() {
+        if (particlesInited) return;
+        particlesInited = true;
+        var canvas = document.getElementById('particle-canvas');
+        if (!canvas || prefersReduced) return;
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var w, h;
+        var isMobile = window.innerWidth < 768;
+        var count = isMobile ? 20 : 50;
+
+        function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+        resize();
+        window.addEventListener('resize', resize);
+
+        for (var i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * w, y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+            r: Math.random() * 1.5 + 0.5, o: Math.random() * 0.4 + 0.1
+          });
+        }
+
+        var mouseP = { x: -1000, y: -1000 };
+        document.addEventListener('mousemove', function(e) { mouseP.x = e.clientX; mouseP.y = e.clientY; });
+
+        (function drawParticles() {
+          ctx.clearRect(0, 0, w, h);
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+            if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+            var dx = p.x - mouseP.x, dy = p.y - mouseP.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            var alpha = p.o;
+            if (dist < 120) alpha = Math.min(0.8, p.o + (120 - dist) / 120 * 0.5);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0,229,255,' + alpha + ')';
+            ctx.fill();
+          }
+          for (var a = 0; a < particles.length; a++) {
+            for (var b = a + 1; b < particles.length; b++) {
+              var ddx = particles[a].x - particles[b].x;
+              var ddy = particles[a].y - particles[b].y;
+              var d = Math.sqrt(ddx * ddx + ddy * ddy);
+              if (d < 130) {
+                ctx.beginPath();
+                ctx.moveTo(particles[a].x, particles[a].y);
+                ctx.lineTo(particles[b].x, particles[b].y);
+                ctx.strokeStyle = 'rgba(0,229,255,' + (0.06 * (1 - d / 130)) + ')';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(drawParticles);
+        })();
+      }
+
+      /* ========================================================================
+         SCROLL & HEADER
+         ======================================================================== */
+      var scrollProgress = document.getElementById('scrollProgress');
+      var header = document.getElementById('header');
+
+      function onScroll() {
+        var scrolled = window.scrollY;
+        var total = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgress.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
+        header.classList.toggle('scrolled', scrolled > 50);
+        updateIndicator();
+        updateNavHighlight();
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      /* ========================================================================
+         MOBILE MENU
+         ======================================================================== */
+      var hamburger = document.getElementById('hamburger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var menuOpen = false;
+
+      hamburger.addEventListener('click', function() {
+        menuOpen = !menuOpen;
+        hamburger.classList.toggle('open', menuOpen);
+        mobileMenu.classList.toggle('open', menuOpen);
+        hamburger.setAttribute('aria-expanded', String(menuOpen));
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          menuOpen = false;
+          hamburger.classList.remove('open');
+          mobileMenu.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+
+      /* ========================================================================
+         SMOOTH ANCHOR SCROLL
+         ======================================================================== */
+      document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          var targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          var target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            var targetPos = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: targetPos, behavior: prefersReduced ? 'auto' : 'smooth' });
+          }
+        });
+      });
+
+      /* ========================================================================
+         REVEALS
+         ======================================================================== */
+      var revealsInited = false;
+      function initReveals() {
+        if (revealsInited) return;
+        revealsInited = true;
+        var revealEls = document.querySelectorAll('.reveal:not(.in-view)');
+        if ('IntersectionObserver' in window) {
+          var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+          revealEls.forEach(function(el) { observer.observe(el); });
+
+          var flowSteps = document.querySelectorAll('.flow-step');
+          var flowObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                var step = parseInt(entry.target.getAttribute('data-step'));
+                setTimeout(function() { entry.target.classList.add('in-view'); }, step * 120);
+                flowObs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          flowSteps.forEach(function(el) { flowObs.observe(el); });
+
+          var finalCta = document.getElementById('finalCta');
+          var finalObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                finalCta.classList.add('in-view');
+                splitWords(document.getElementById('finalLine1'), 0);
+                splitWords(document.getElementById('finalLine2'), 0.4);
+                finalObs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.4 });
+          if (finalCta) finalObs.observe(finalCta);
+
+          var timelineItems = document.querySelectorAll('.timeline-item');
+          var timelineObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+          }, { threshold: 0.5, rootMargin: '-20% 0px -30% 0px' });
+          timelineItems.forEach(function(item) { timelineObs.observe(item); });
+
+          var statNums = document.querySelectorAll('.stat-num[data-count]');
+          var statObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                var el = entry.target;
+                var target = parseInt(el.getAttribute('data-count'));
+                var suffix = el.getAttribute('data-suffix') || '';
+                var startTime = null;
+                function step(ts) {
+                  if (!startTime) startTime = ts;
+                  var progress = Math.min((ts - startTime) / 1200, 1);
+                  var current = Math.floor(progress * target);
+                  el.textContent = String(current).padStart(2, '0') + suffix;
+                  if (progress < 1) requestAnimationFrame(step);
+                  else el.textContent = String(target).padStart(2, '0') + suffix;
+                }
+                requestAnimationFrame(step);
+                statObs.unobserve(el);
+              }
+            });
+          }, { threshold: 0.5 });
+          statNums.forEach(function(el) { statObs.observe(el); });
+        } else {
+          revealEls.forEach(function(el) { el.classList.add('in-view'); });
+        }
+      }
+
+      function splitWords(el, baseDelay) {
+        if (!el || el.getAttribute('data-split') === 'true') return;
+        var words = el.textContent.trim().split(/\s+/);
+        el.innerHTML = '';
+        words.forEach(function(word, i) {
+          var wrap = document.createElement('span');
+          wrap.className = 'word';
+          wrap.textContent = word;
+          wrap.style.transitionDelay = (baseDelay + i * 0.1) + 's';
+          el.appendChild(wrap);
+          el.appendChild(document.createTextNode(' '));
+        });
+        el.setAttribute('data-split', 'true');
+      }
+
+      /* ========================================================================
+         SECTION INDICATOR + NAV HIGHLIGHT
+         ======================================================================== */
+      var sectionIndicator = document.getElementById('sectionIndicator');
+      var indicatorBtns = sectionIndicator ? sectionIndicator.querySelectorAll('button') : [];
+      indicatorBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var target = document.getElementById(this.getAttribute('data-target'));
+          if (target) {
+            var pos = target.getBoundingClientRect().top + window.scrollY - 70;
+            window.scrollTo({ top: pos, behavior: prefersReduced ? 'auto' : 'smooth' });
+          }
+        });
+      });
+
+      var sections = ['hero', 'about', 'threat', 'workshop', 'speakers', 'schedule', 'experience', 'faq'];
+      function updateIndicator() {
+        var scrollPos = window.scrollY + window.innerHeight / 3;
+        var current = 'hero';
+        sections.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollPos) current = id;
+        });
+        indicatorBtns.forEach(function(btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-target') === current);
+        });
+      }
+
+      var navLinks = document.querySelectorAll('.nav-desktop a');
+      function updateNavHighlight() {
+        var scrollPos = window.scrollY + window.innerHeight / 3;
+        var current = '';
+        ['about', 'workshop', 'speakers', 'schedule', 'experience', 'faq'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollPos) current = id;
+        });
+        navLinks.forEach(function(link) {
+          var href = link.getAttribute('href').replace('#', '');
+          link.style.color = href === current ? 'var(--cyan)' : '';
+        });
+      }
+
+      /* ========================================================================
+         THREAT LANDSCAPE
+         ======================================================================== */
+      var threatNodes = document.querySelectorAll('.threat-node');
+      var threatPanel = document.getElementById('threatPanel');
+      var threatLines = document.querySelectorAll('.threat-line');
+
+      threatNodes.forEach(function(node) {
+        node.addEventListener('mouseenter', function() {
+          var nodeName = this.getAttribute('data-node');
+          var threat = this.getAttribute('data-threat');
+          var vectors = this.getAttribute('data-vectors');
+          threatNodes.forEach(function(n) { n.classList.remove('active'); });
+          threatLines.forEach(function(l) { l.classList.remove('active'); });
+          this.classList.add('active');
+          threatLines.forEach(function(line) {
+            var from = line.getAttribute('data-from');
+            var to = line.getAttribute('data-to');
+            if (from === nodeName || to === nodeName) line.classList.add('active');
+          });
+          threatPanel.innerHTML =
+            '<div class="node-name">' + nodeName + '</div>' +
+            '<div class="row"><span class="k">Threat Level</span><span class="v">' + threat + '%</span></div>' +
+            '<div class="row"><span class="k">Active Vectors</span><span class="v">' + vectors + '</span></div>' +
+            '<div class="threat-meter"><div class="fill" style="width:0%"></div></div>';
+          setTimeout(function() {
+            var fill = threatPanel.querySelector('.fill');
+            if (fill) fill.style.width = threat + '%';
+          }, 30);
+        });
+      });
+
+      /* ========================================================================
+         FAQ ACCORDION
+         ======================================================================== */
+      document.querySelectorAll('.faq-item').forEach(function(item) {
+        var q = item.querySelector('.faq-q');
+        var a = item.querySelector('.faq-a');
+        q.addEventListener('click', function() {
+          var isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(function(other) {
+            other.classList.remove('open');
+            other.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            other.querySelector('.faq-a').style.maxHeight = null;
+          });
+          if (!isOpen) {
+            item.classList.add('open');
+            q.setAttribute('aria-expanded', 'true');
+            a.style.maxHeight = a.scrollHeight + 'px';
+          }
+        });
+      });
+
+      /* ========================================================================
+         WORKSHOP CARD GLOW TRACKING
+         ======================================================================== */
+      document.querySelectorAll('.workshop-card').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var rect = this.getBoundingClientRect();
+          this.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+          this.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+        });
+      });
+
+      /* ========================================================================
+         MAGNETIC BUTTONS + HERO PARALLAX
+         ======================================================================== */
+      if (!prefersReduced && !isTouch) {
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function(btn) {
+          btn.addEventListener('mousemove', function(e) {
+            var rect = this.getBoundingClientRect();
+            var x = e.clientX - rect.left - rect.width / 2;
+            var y = e.clientY - rect.top - rect.height / 2;
+            this.style.transform = 'translate(' + (x * 0.15) + 'px,' + (y * 0.25) + 'px)';
+          });
+          btn.addEventListener('mouseleave', function() { this.style.transform = ''; });
+        });
+
+        var heroVisual = document.querySelector('.hero-visual');
+        var heroSection = document.getElementById('hero');
+        if (heroVisual && heroSection) {
+          heroSection.addEventListener('mousemove', function(e) {
+            var x = (e.clientX / window.innerWidth - 0.5) * 2;
+            var y = (e.clientY / window.innerHeight - 0.5) * 2;
+            heroVisual.style.transform = 'translate(' + (x * 12) + 'px,' + (y * 12) + 'px)';
+          });
+          heroSection.addEventListener('mouseleave', function() { heroVisual.style.transform = ''; });
+        }
+      }
+
+      /* ========================================================================
+         REGISTER BUTTON PLACEHOLDER
+         ======================================================================== */
+      var registerBtn = document.getElementById('registerBtn');
+      if (registerBtn) {
+        registerBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('Registration opens soon. Follow Meridian Summit for updates.');
+        });
+      }
+
+      /* ========================================================================
+         KEYBOARD SHORTCUTS FOR GAME (1-4)
+         ======================================================================== */
+      document.addEventListener('keydown', function(e) {
+        if (game.classList.contains('hidden')) return;
+        if (gameState.locked) return;
+        var key = parseInt(e.key);
+        if (key >= 1 && key <= 4) {
+          var btns = gameOptions.querySelectorAll('.game-option');
+          if (btns[key - 1] && !btns[key - 1].disabled) btns[key - 1].click();
+        }
+      });
+
+      // Boot
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
